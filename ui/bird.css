@@ -1,0 +1,360 @@
+@-webkit-keyframes stage_move {
+  0% {
+    background-position: 0 0; }
+
+  50% {
+    background-position: -19px 0; }
+
+  100% {
+    background-position: -38px 0; } }
+
+@-moz-keyframes stage_move {
+  0% {
+    background-position: 0 0; }
+
+  50% {
+    background-position: -19px 0; }
+
+  100% {
+    background-position: -38px 0; } }
+
+@-ms-keyframes stage_move {
+  0% {
+    background-position: 0 0; }
+
+  50% {
+    background-position: -19px 0; }
+
+  100% {
+    background-position: -38px 0; } }
+
+@keyframes stage_move {
+  0% {
+    background-position: 0 0; }
+
+  50% {
+    background-position: -19px 0; }
+
+  100% {
+    background-position: -38px 0; } }
+
+@-webkit-keyframes suspend {
+  0% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0); }
+
+  50% {
+    -webkit-transform: translate(0, 8px);
+    -moz-transform: translate(0, 8px);
+    -ms-transform: translate(0, 8px);
+    -o-transform: translate(0, 8px); }
+
+  100% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0); } }
+
+@-moz-keyframes suspend {
+  0% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0); }
+
+  50% {
+    -webkit-transform: translate(0, 8px);
+    -moz-transform: translate(0, 8px);
+    -ms-transform: translate(0, 8px);
+    -o-transform: translate(0, 8px); }
+
+  100% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0); } }
+
+@-ms-keyframes suspend {
+  0% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0); }
+
+  50% {
+    -webkit-transform: translate(0, 8px);
+    -moz-transform: translate(0, 8px);
+    -ms-transform: translate(0, 8px);
+    -o-transform: translate(0, 8px); }
+
+  100% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0); } }
+
+@keyframes suspend {
+  0% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0); }
+
+  50% {
+    -webkit-transform: translate(0, 8px);
+    -moz-transform: translate(0, 8px);
+    -ms-transform: translate(0, 8px);
+    -o-transform: translate(0, 8px); }
+
+  100% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0); } }
+
+body {
+  background-color: #333;
+  padding: 0;
+  margin: 0; }
+  body .stage {
+    border: solid 4px rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    width: 384px;
+    height: 512px;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-image: url(images/stage_sky.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    position: relative; }
+    body .stage .ground {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-image: url(images/stage_ground.png);
+      background-size: auto 100%;
+      background-repeat: repeat-x;
+      background-position: 0 0; }
+  body .bird {
+    z-index: 1;
+    position: absolute;
+    width: 43px;
+    height: 30px;
+    background-image: url(images/bird.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    -webkit-animation: suspend 0.7s linear infinite;
+    -moz-animation: suspend 0.7s linear infinite;
+    -o-animation: suspend 0.7s linear infinite;
+    animation: suspend 0.7s linear infinite; }
+    body .bird.f0 {
+      background-position: 0 0; }
+    body .bird.f1 {
+      background-position: 0 -35px; }
+    body .bird.f2 {
+      background-position: 0 -70px; }
+    body .bird.f3 {
+      background-position: 0 -35px; }
+    body .bird.no-suspend {
+      -webkit-animation: none;
+      -moz-animation: none;
+      -o-animation: none;
+      animation: none; }
+    body .bird.up {
+      -webkit-transition: -webkit-transform .1s ease-in;
+      /* Changed here */
+      -moz-transition: -moz-transform .1s ease-in;
+      -o-transition: -o-transform .1s ease-in;
+      transition: transform .1s ease-in;
+      -webkit-transform: rotate(-30deg);
+      -moz-transform: rotate(-30deg);
+      -ms-transform: rotate(-30deg);
+      -o-transform: rotate(-30deg); }
+    body .bird.down {
+      -webkit-transition: -webkit-transform .6s ease-in;
+      /* Changed here */
+      -moz-transition: -moz-transform .6s ease-in;
+      -o-transition: -o-transform .6s ease-in;
+      transition: transform .6s ease-in;
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      -o-transform: rotate(90deg); }
+  body .logo {
+    position: absolute;
+    width: 257px;
+    height: 59px;
+    left: 35px;
+    top: 137px;
+    background-image: url(images/logo.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    -webkit-animation: suspend 0.7s linear infinite;
+    -moz-animation: suspend 0.7s linear infinite;
+    -o-animation: suspend 0.7s linear infinite;
+    animation: suspend 0.7s linear infinite; }
+    body .logo.f0 {
+      background-position: 0 0; }
+    body .logo.f1 {
+      background-position: 0 -35px; }
+    body .logo.f2 {
+      background-position: 0 -70px; }
+    body .logo.f3 {
+      background-position: 0 -35px; }
+  body .start {
+    position: absolute;
+    width: 107px;
+    height: 38px;
+    left: 58px;
+    top: 394px;
+    background-image: url(images/start.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    z-index: 100; }
+    body .start:active {
+      top: 397px; }
+  body .ok {
+    position: absolute;
+    width: 107px;
+    height: 38px;
+    left: 58px;
+    top: 394px;
+    background-image: url(images/ok.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    z-index: 100; }
+    body .ok:active {
+      top: 397px; }
+  body .get_ready {
+    position: absolute;
+    width: 233px;
+    height: 59px;
+    left: 75px;
+    top: 109px;
+    background-image: url(images/get_ready.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat; }
+  body .game_over {
+    position: absolute;
+    width: 251px;
+    height: 51px;
+    left: 67px;
+    top: 94px;
+    background-image: url(images/game_over.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    z-index: 100; }
+  body .tap {
+    position: absolute;
+    width: 105px;
+    height: 131.5px;
+    left: 165px;
+    top: 219px;
+    background-image: url(images/tap.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat; }
+  body .score_board {
+    position: absolute;
+    width: 302px;
+    height: 155px;
+    left: 41px;
+    top: 179px;
+    background-image: url(images/score_board.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    z-index: 100; }
+    body .score_board .new_record {
+      position: absolute;
+      width: 43px;
+      height: 20px;
+      right: 78.5px;
+      top: 77.5px;
+      background-image: url(images/new_record.png);
+      background-size: 100% auto;
+      background-repeat: no-repeat; }
+  body .score {
+    position: absolute;
+    top: 21px;
+    left: 50%;
+    z-index: 100; }
+    body .score .number {
+      float: left;
+      width: 18px;
+      height: 25px;
+      margin-left: 2px;
+      background-image: url(images/numbers.png);
+      background-size: auto 100%;
+      background-repeat: no-repeat; }
+      body .score .number.n0 {
+        background-position: 0 0; }
+      body .score .number.n1 {
+        background-position: -22.5px 0; }
+      body .score .number.n2 {
+        background-position: -45px 0; }
+      body .score .number.n3 {
+        background-position: -67.5px 0; }
+      body .score .number.n4 {
+        background-position: -90px 0; }
+      body .score .number.n5 {
+        background-position: -112.5px 0; }
+      body .score .number.n6 {
+        background-position: -135px 0; }
+      body .score .number.n7 {
+        background-position: -157.5px 0; }
+      body .score .number.n8 {
+        background-position: -180px 0; }
+      body .score .number.n9 {
+        background-position: -202.5px 0; }
+  body .pipe {
+    position: absolute;
+    width: 69px;
+    top: 0;
+    bottom: 64px; }
+    body .pipe .top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-image: url(images/pipe_body.png);
+      background-size: 65px 1px;
+      background-repeat: repeat-y;
+      background-position: 2px 0; }
+      body .pipe .top:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 69px;
+        height: 32px;
+        background-image: url(images/pipe_head_1.png);
+        background-size: 100% auto;
+        background-repeat: no-repeat; }
+    body .pipe .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: url(images/pipe_body.png);
+      background-size: 65px 1px;
+      background-repeat: repeat-y;
+      background-position: 2px 0; }
+      body .pipe .bottom:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 69px;
+        height: 32px;
+        background-image: url(images/pipe_head_2.png);
+        background-size: 100% auto;
+        background-repeat: no-repeat; }
