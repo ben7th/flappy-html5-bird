@@ -21,7 +21,7 @@ class Runner
     @frame = 0
     @frametime = 1000 / @FPS
 
-    @GROUND_SPEED = 2 # px / frame
+    @GROUND_SPEED = 3 # px / frame
 
     @roles = []
 
@@ -126,8 +126,15 @@ class Bird
 
       # 位移 = 速度 * 时间
       d = @speed * @runner.frametime
-      @pos(@left, @top - d)
-      @speed = @speed - @acceleration * @runner.frametime
+      new_top = @top - d
+
+      if new_top >= 418
+        @pos(@left, 418)
+        @speed = 0
+        @acceleration = 0
+      else
+        @pos(@left, new_top)
+        @speed = @speed - @acceleration * @runner.frametime
 
   pos: (left, top)->
     @left = left
@@ -143,8 +150,25 @@ class Bird
     # 撞地板，撞柱子的判断
     return if @is_dead
 
+    # 撞地板
     if @top >= 418
       @state_dead()
+      return
+
+    # 撞管子
+    # bird center x = 120.5
+    # pipe center x = left + 69 / 2 = 34.5
+    # W = bird width + pipe width = 43 + 69 = 112, W / 2 = 56
+    pipes = window.game.pipes.pipes
+    if pipes.length > 0
+      p = pipes[0]
+
+      bird_mx = 120.5
+      pipe_mx = p.data('left') + 34.5
+
+      if Math.abs(bird_mx - pipe_mx) <= 56
+        if @top < p.data('y0') || @top + 15 > p.data('y1')
+          @state_dead()
 
   state_suspend: ->
     # 悬浮
@@ -162,10 +186,6 @@ class Bird
   state_dead: ->
     # 死亡
     @is_dead = true
-    @acceleration = 0
-    @speed = 0
-
-    @pos(@left, 418)
     
     jQuery(document).trigger 'bird:dead'
 
@@ -174,7 +194,7 @@ class Bird
     return if @is_dead
 
     # 30px ~ 1m
-    @acceleration = 0.0024
+    @acceleration = 0.003
     @speed = 0.6
 
 class Score
@@ -197,6 +217,9 @@ class Score
       @$elm.css
         'margin-left': - @$elm.width() / 2
     , 1
+
+  inc: ->
+    @set(@score + 1)
 
 class ScoreBoard
   constructor: ->
@@ -272,6 +295,8 @@ class Pipes
       .addClass 'pipe'
       .css 'left', left
       .data 'left', left
+      .data 'y0', y0
+      .data 'y1', y1
 
     $top = jQuery('<div></div>')
       .addClass 'top'
@@ -294,22 +319,38 @@ class Pipes
 
     for $pipe in @pipes
       left = $pipe.data('left') - @runner.GROUND_SPEED
-
       $pipe
         .css 'left', left
         .data 'left', left
 
-    if @pipes.length > 0 && @pipes.length < 5
-      @generate()
+    if @pipes.length > 0
+      if @pipes.length < 4
+        @generate()
+
+      # 移除过时的管子
+      if @pipes[0].data('left') < -69
+        @pipes[0].remove()
+        @pipes.splice(0, 1)
+
+      # 判断是否加分
+      # bird x = 99, bird width = 43
+      # pipe center = 69 / 2 = 34.5
+      # pass line x = 99 + 43 / 2 - 34.5 = 86
+      if @pipes[0].data('left') < 86
+        if !@pipes[0].data('passed')
+          @pipes[0].data('passed', true)
+          jQuery(document).trigger('score:add')
 
   stop: ->
     @is_stop = true
 
-  start: ->
-    @is_stop = false
+  clear: ->
     for p in @pipes
       p.remove()
     @pipes = []
+
+  start: ->
+    @is_stop = false    
     @generate()
 
 
@@ -383,8 +424,15 @@ class Game
       console.log 'bird dead'
       @over()
 
+    jQuery(document).on 'bird:hit', =>
+      console.log 'bird hit'
+      @bird.state_dead()
+
     jQuery(document).on 'pipe:created', (evt, $pipe)=>
       @stage.$elm.append($pipe)
+
+    jQuery(document).on 'score:add', (evt, $pipe)=>
+      @score.inc()
 
   _show: ->
     for k, v of @objects
@@ -402,6 +450,7 @@ class Game
 
     @stage.move()
     @bird.state_suspend()
+    @pipes.clear()
 
   ready: ->
     @state = 'ready'
