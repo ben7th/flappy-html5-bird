@@ -194,8 +194,11 @@ class Bird
     return if @is_dead
 
     # 30px ~ 1m
-    @acceleration = 0.003
-    @speed = 0.6
+    # @acceleration = 0.003
+    # @speed = 0.6
+
+    @acceleration = 0.0025
+    @speed = 0.55
 
 class Score
   constructor: ->
@@ -375,6 +378,7 @@ class Game
     @$logo      = @stage.build_elm 'logo'
     @$start     = @stage.build_elm 'start'
     @$ok        = @stage.build_elm 'ok'
+    @$share     = @stage.build_elm 'share'
     @$get_ready = @stage.build_elm 'get_ready'
     @$tap       = @stage.build_elm 'tap'
     @$game_over = @stage.build_elm 'game_over'
@@ -392,6 +396,7 @@ class Game
       'logo': @$logo
       'start': @$start
       'ok': @$ok
+      'share': @$share
       'get_ready': @$get_ready
       'game_over': @$game_over
       'tap': @$tap
@@ -411,6 +416,9 @@ class Game
       @stage.$elm.fadeOut 200, =>
         @begin()
         @stage.$elm.fadeIn 200
+
+    @$share.on 'click', =>
+      bShare.more(event)
 
     @stage.$elm.on 'mousedown', =>
       if @state == 'ready'
@@ -493,6 +501,7 @@ class Game
             top: 179
           , =>
             @$ok.fadeIn()
+            @$share.fadeIn()
 
     , 500
 
