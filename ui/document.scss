@@ -1,0 +1,34 @@
+body {
+  .ct-p1 {
+    // background-color:white;
+    position:absolute;
+    width:280px;
+    top:100px;left:50%;
+    margin-left: - 280px - 384px / 2 - 30px;
+    // text-align:right;
+
+    img.avatar {
+      // float:right;
+      width:96px;height:96px;
+      border-radius:96px;
+      border:solid 4px rgba(white, 0.3);
+      // margin-right:280px / 2 - 104px / 2;
+      margin-bottom:20px;
+    }
+
+    .developer {
+      a { font-weight:bold;}
+    }
+
+    .stat {
+      a { font-weight:bold;}
+      .lines {
+        margin-left:24px;
+      }
+    }
+
+    .bshare {
+      a {border:0 none;}
+    }
+  }
+}

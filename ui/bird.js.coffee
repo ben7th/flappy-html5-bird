@@ -92,30 +92,8 @@ class Bird
     @acceleration = 0
 
   draw: ->
-    @_flap()
     @_repos()
     @hit()
-
-  _flap: ->
-    if @is_dead
-      @$elm
-        .removeClass('f0')
-        .removeClass('f1')
-        .removeClass('f2')
-        .addClass('f3')
-      return
-
-    if @runner.frame % 6 == 0
-      k = 'f1' if @klass == 'f0'
-      k = 'f2' if @klass == 'f1'
-      k = 'f3' if @klass == 'f2'
-      k = 'f0' if @klass == 'f3'
-
-      @$elm
-        .removeClass(@klass)
-        .addClass(k)
-
-      @klass = k
 
   _repos: ->
     if @acceleration != 0
@@ -147,7 +125,7 @@ class Bird
       top: @top
 
   hit: ->
-    # 撞地板，撞柱子的判断
+    # 撞地板，撞管子的判断
     return if @is_dead
 
     # 撞地板
@@ -176,6 +154,7 @@ class Bird
 
     @speed = 0
     @is_dead = false
+    @$elm.removeClass('dead')
     @acceleration = 0
 
   state_fly: ->
@@ -186,16 +165,13 @@ class Bird
   state_dead: ->
     # 死亡
     @is_dead = true
+    @$elm.addClass('dead')
     
     jQuery(document).trigger 'bird:dead'
 
 
   jump: ->
     return if @is_dead
-
-    # 30px ~ 1m
-    # @acceleration = 0.003
-    # @speed = 0.6
 
     @acceleration = 0.0025
     @speed = 0.55
@@ -283,9 +259,9 @@ class Pipes
 
   generate: ->
     # 生成一对新水管
-    # 开口位置 y0 y1 随机在 80 到 448 - 128 - 80 = 240 之间
+    # 开口位置 y0 y1 随机在 70 到 448 - 128 - 70 = 250 之间
 
-    y0 = ~~(Math.random() * (240 - 80 + 1) + 80)
+    y0 = ~~(Math.random() * (250 - 70 + 1) + 70)
     y1 = y0 + @ygap
 
     last_pipe = @pipes[@pipes.length - 1]
@@ -454,7 +430,7 @@ class Game
     @state = 'begin'
 
     @_show('logo', 'bird', 'start')
-    @bird.pos(310, 145) # 35 137
+    @bird.pos(310, 145)
 
     @stage.move()
     @bird.state_suspend()
@@ -504,12 +480,6 @@ class Game
             @$share.fadeIn()
 
     , 500
-
-    # 闪一下
-    # 分数消失
-    # gameover跳出来
-    # 延迟一小会，分数牌出来
-    # 按钮出来
 
 jQuery ->
   window.game = new Game

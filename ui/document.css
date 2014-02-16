@@ -1,0 +1,20 @@
+body .ct-p1 {
+  position: absolute;
+  width: 280px;
+  top: 100px;
+  left: 50%;
+  margin-left: -502px; }
+  body .ct-p1 img.avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 96px;
+    border: solid 4px rgba(255, 255, 255, 0.3);
+    margin-bottom: 20px; }
+  body .ct-p1 .developer a {
+    font-weight: bold; }
+  body .ct-p1 .stat a {
+    font-weight: bold; }
+  body .ct-p1 .stat .lines {
+    margin-left: 24px; }
+  body .ct-p1 .bshare a {
+    border: 0 none; }

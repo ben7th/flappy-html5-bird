@@ -115,6 +115,70 @@
     -ms-transform: translate(0, 0);
     -o-transform: translate(0, 0); } }
 
+@-webkit-keyframes flap {
+  0% {
+    background-position: 0 -35px; }
+
+  25% {
+    background-position: 0 -70px; }
+
+  50% {
+    background-position: 0 -35px; }
+
+  75% {
+    background-position: 0 -0px; }
+
+  100% {
+    background-position: 0 -35px; } }
+
+@-moz-keyframes flap {
+  0% {
+    background-position: 0 -35px; }
+
+  25% {
+    background-position: 0 -70px; }
+
+  50% {
+    background-position: 0 -35px; }
+
+  75% {
+    background-position: 0 -0px; }
+
+  100% {
+    background-position: 0 -35px; } }
+
+@-ms-keyframes flap {
+  0% {
+    background-position: 0 -35px; }
+
+  25% {
+    background-position: 0 -70px; }
+
+  50% {
+    background-position: 0 -35px; }
+
+  75% {
+    background-position: 0 -0px; }
+
+  100% {
+    background-position: 0 -35px; } }
+
+@keyframes flap {
+  0% {
+    background-position: 0 -35px; }
+
+  25% {
+    background-position: 0 -70px; }
+
+  50% {
+    background-position: 0 -35px; }
+
+  75% {
+    background-position: 0 -0px; }
+
+  100% {
+    background-position: 0 -35px; } }
+
 body {
   background-color: #222;
   padding: 0;
@@ -137,38 +201,6 @@ body {
     border: 0 none;
     margin-top: 20px;
     margin-bottom: 20px; }
-
-body .ct-p1 {
-  position: absolute;
-  width: 280px;
-  top: 100px;
-  left: 50%;
-  margin-left: 222px; }
-  body .ct-p1 p mark {
-    background: none;
-    color: #ffffda; }
-  body .ct-p1 p span {
-    color: #ffd4b6; }
-body .ct-p2 {
-  position: absolute;
-  width: 280px;
-  top: 100px;
-  left: 50%;
-  margin-left: -502px; }
-  body .ct-p2 img.avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 96px;
-    border: solid 4px rgba(255, 255, 255, 0.3);
-    margin-bottom: 20px; }
-  body .ct-p2 .developer a {
-    font-weight: bold; }
-  body .ct-p2 .stat a {
-    font-weight: bold; }
-  body .ct-p2 .stat .lines {
-    margin-left: 24px; }
-  body .ct-p2 .bshare a {
-    border: 0 none; }
 
 body .stage {
   border: solid 4px rgba(255, 255, 255, 0.3);
@@ -201,39 +233,35 @@ body .bird {
   background-image: url(images/bird.png);
   background-size: 100% auto;
   background-repeat: no-repeat;
-  -webkit-animation: suspend 0.7s linear infinite;
-  -moz-animation: suspend 0.7s linear infinite;
-  -o-animation: suspend 0.7s linear infinite;
-  animation: suspend 0.7s linear infinite; }
-  body .bird.f0 {
-    background-position: 0 0; }
-  body .bird.f1 {
-    background-position: 0 -35px; }
-  body .bird.f2 {
-    background-position: 0 -70px; }
-  body .bird.f3 {
-    background-position: 0 -35px; }
+  background-position: 0 -35px;
+  -webkit-animation: suspend 0.7s linear infinite, flap 0.3s steps(1) infinite;
+  -moz-animation: suspend 0.7s linear infinite, flap 0.3s steps(1) infinite;
+  -o-animation: suspend 0.7s linear infinite, flap 0.3s steps(1) infinite;
+  animation: suspend 0.7s linear infinite, flap 0.3s steps(1) infinite; }
   body .bird.no-suspend {
+    -webkit-animation: flap 0.4s steps(1) infinite;
+    -moz-animation: flap 0.4s steps(1) infinite;
+    -o-animation: flap 0.4s steps(1) infinite;
+    animation: flap 0.4s steps(1) infinite; }
+  body .bird.dead {
     -webkit-animation: none;
     -moz-animation: none;
     -o-animation: none;
     animation: none; }
   body .bird.up {
-    -webkit-transition: -webkit-transform .1s ease-in;
-    /* Changed here */
-    -moz-transition: -moz-transform .1s ease-in;
-    -o-transition: -o-transform .1s ease-in;
-    transition: transform .1s ease-in;
+    -webkit-transition: -webkit-transform 0.1s ease-in;
+    -moz-transition: -moz-transform 0.1s ease-in;
+    -o-transition: -o-transform 0.1s ease-in;
+    transition: transform 0.1s ease-in;
     -webkit-transform: rotate(-30deg);
     -moz-transform: rotate(-30deg);
     -ms-transform: rotate(-30deg);
     -o-transform: rotate(-30deg); }
   body .bird.down {
-    -webkit-transition: -webkit-transform .6s ease-in;
-    /* Changed here */
-    -moz-transition: -moz-transform .6s ease-in;
-    -o-transition: -o-transform .6s ease-in;
-    transition: transform .6s ease-in;
+    -webkit-transition: -webkit-transform 0.6s ease-in;
+    -moz-transition: -moz-transform 0.6s ease-in;
+    -o-transition: -o-transform 0.6s ease-in;
+    transition: transform 0.6s ease-in;
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
@@ -251,14 +279,6 @@ body .logo {
   -moz-animation: suspend 0.7s linear infinite;
   -o-animation: suspend 0.7s linear infinite;
   animation: suspend 0.7s linear infinite; }
-  body .logo.f0 {
-    background-position: 0 0; }
-  body .logo.f1 {
-    background-position: 0 -35px; }
-  body .logo.f2 {
-    background-position: 0 -70px; }
-  body .logo.f3 {
-    background-position: 0 -35px; }
 body .start {
   position: absolute;
   width: 107px;
