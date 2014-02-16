@@ -75,11 +75,10 @@ class Stage
       'background-position': "#{@bgleft}px 0"
 
 class Bird
-  constructor: (@stage)->
+  constructor: ->
     @$elm = jQuery('<div></div>')
       .addClass('bird')
     
-    #status
     @speed = 0
     @is_dead = false
     @gravity = 0
@@ -95,8 +94,7 @@ class Bird
       else
         @$elm.addClass('down').removeClass('up')
 
-      # 位移 = 速度 * 时间
-      new_top = @top - @speed
+      new_top = @top - @speed # 这里的speed是每帧的位移
 
       if new_top >= 418
         @pos(@left, 418)
@@ -295,21 +293,23 @@ class Pipes
         .data 'left', left
 
     if @pipes.length > 0
-      if @pipes.length < 4
+      if @pipes.length < 3
         @generate()
 
+      pipe0 = @pipes[0]
+
       # 移除过时的管子
-      if @pipes[0].data('left') < -69
-        @pipes[0].remove()
+      if pipe0.data('left') < -69
+        pipe0.remove()
         @pipes.splice(0, 1)
 
       # 判断是否加分
       # bird x = 99, bird width = 43
       # pipe center = 69 / 2 = 34.5
       # pass line x = 99 + 43 / 2 - 34.5 = 86
-      if @pipes[0].data('left') < 86
-        if !@pipes[0].data('passed')
-          @pipes[0].data('passed', true)
+      if pipe0.data('left') < 86
+        if !pipe0.data('passed')
+          pipe0.data('passed', true)
           jQuery(document).trigger('score:add')
 
   stop: ->
@@ -327,7 +327,7 @@ class Pipes
 class Game
   constructor: (@stage)->
     @stage = new Stage
-    @bird = new Bird @stage
+    @bird  = new Bird
     @score = new Score
     @score_board = new ScoreBoard
     @pipes = new Pipes
