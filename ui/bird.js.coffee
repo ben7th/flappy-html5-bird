@@ -20,9 +20,9 @@ class Runner
     @FPS = 60 # frame / s
     @FRAME_TIME = 1000 / @FPS # ms / frame
 
-    @GROUND_SPEED = 240 / @FPS # px / frame
-    @GRAVITY = 51 / @FPS # px / frame
-    @BIRD_JUMP_SPEED = 560 / @FPS # px / frame
+    @GROUND_SPEED = 190 / @FPS # px / frame
+    @GRAVITY = 35 / @FPS # px / frame
+    @BIRD_JUMP_SPEED = 510 / @FPS # px / frame
 
     @roles = []
 
@@ -31,16 +31,15 @@ class Runner
     role.runner = @
 
   run: ->
-    start = new Date().getTime()
-    _loop = =>
-      now = new Date().getTime()
-      delta = now - start
-      if delta >= @FRAME_TIME
-        start = now
+    start_time = new Date().getTime()
+    setInterval =>
+      new_time = new Date().getTime()
+      deltat = new_time - start_time
+      if deltat > @FRAME_TIME
         for role in @roles
           role.draw()
-      requestAnimationFrame _loop
-    requestAnimationFrame _loop
+        start_time = new_time
+    , 1
 
 class Stage
   constructor: ->
