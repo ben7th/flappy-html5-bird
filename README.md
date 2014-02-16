@@ -9,5 +9,4 @@ flappy-html5-bird
 略微扩大了管子开口随机的范围(上下各增加了10像素)<br/>
 
 2014.02.17 - 0.0.4<br/>
-<s>改为使用 requestAnimationFrame 计时</s><br/>
 调整了一些场景数值<br/>
