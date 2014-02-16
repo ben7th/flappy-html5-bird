@@ -42,32 +42,6 @@ class Runner
       requestAnimationFrame _loop
     requestAnimationFrame _loop
 
-# class Runner
-#   constructor: ->
-#     @FPS = 60 # frame / s
-#     @FRAME_TIME = 1000 / @FPS # ms / frame
-
-#     @GROUND_SPEED = 190 / @FPS # px / frame
-#     @GRAVITY = 35 / @FPS # px / frame
-#     @BIRD_JUMP_SPEED = 510 / @FPS # px / frame
-
-#     @roles = []
-
-#   add: (role)->
-#     @roles.push role
-#     role.runner = @
-
-#   run: ->
-#     start_time = new Date().getTime()
-#     setInterval =>
-#       new_time = new Date().getTime()
-#       deltat = new_time - start_time
-#       if deltat > @FRAME_TIME
-#         for role in @roles
-#           role.draw()
-#         start_time = new_time
-#     , 1
-
 class Stage
   constructor: ->
     @$elm = jQuery('<div></div>')
