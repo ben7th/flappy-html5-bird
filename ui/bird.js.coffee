@@ -17,11 +17,12 @@ jQuery.fn.shake = (intShakes, intDistance, intDuration) ->
 
 class Runner
   constructor: ->
-    @FPS = 60
-    @frame = 0
-    @frametime = 1000 / @FPS
+    @FPS = 60 # frame / s
+    @FRAME_TIME = 1000 / @FPS # ms / frame
 
-    @GROUND_SPEED = 3 # px / frame
+    @GROUND_SPEED = 240 / @FPS # px / frame
+    @GRAVITY = 51 / @FPS # px / frame
+    @BIRD_JUMP_SPEED = 560 / @FPS # px / frame
 
     @roles = []
 
@@ -30,19 +31,42 @@ class Runner
     role.runner = @
 
   run: ->
-    last_time = new Date().getTime()
-    setInterval =>
-      new_time = new Date().getTime()
-      deltat = new_time - last_time
-
-      if deltat > @frametime
-        
+    start = new Date().getTime()
+    _loop = =>
+      now = new Date().getTime()
+      delta = now - start
+      if delta >= @FRAME_TIME
+        start = now
         for role in @roles
           role.draw()
+      requestAnimationFrame _loop
+    requestAnimationFrame _loop
 
-        last_time = new_time
-        @frame += 1
-    , 1
+# class Runner
+#   constructor: ->
+#     @FPS = 60 # frame / s
+#     @FRAME_TIME = 1000 / @FPS # ms / frame
+
+#     @GROUND_SPEED = 190 / @FPS # px / frame
+#     @GRAVITY = 35 / @FPS # px / frame
+#     @BIRD_JUMP_SPEED = 510 / @FPS # px / frame
+
+#     @roles = []
+
+#   add: (role)->
+#     @roles.push role
+#     role.runner = @
+
+#   run: ->
+#     start_time = new Date().getTime()
+#     setInterval =>
+#       new_time = new Date().getTime()
+#       deltat = new_time - start_time
+#       if deltat > @FRAME_TIME
+#         for role in @roles
+#           role.draw()
+#         start_time = new_time
+#     , 1
 
 class Stage
   constructor: ->
@@ -73,9 +97,7 @@ class Stage
 
   draw: ->
     return if @$elm.hasClass('stop')
-
     @bgleft -= @runner.GROUND_SPEED
-
     @$ground.css
       'background-position': "#{@bgleft}px 0"
 
@@ -83,36 +105,33 @@ class Bird
   constructor: (@stage)->
     @$elm = jQuery('<div></div>')
       .addClass('bird')
-      .addClass('f0')
-    @klass = 'f0'
     
     #status
     @speed = 0
     @is_dead = false
-    @acceleration = 0
+    @gravity = 0
 
   draw: ->
     @_repos()
     @hit()
 
   _repos: ->
-    if @acceleration != 0
+    if @gravity != 0
       if @speed > 0
         @$elm.addClass('up').removeClass('down')
       else
         @$elm.addClass('down').removeClass('up')
 
       # 位移 = 速度 * 时间
-      d = @speed * @runner.frametime
-      new_top = @top - d
+      new_top = @top - @speed
 
       if new_top >= 418
         @pos(@left, 418)
         @speed = 0
-        @acceleration = 0
+        @gravity = 0
       else
         @pos(@left, new_top)
-        @speed = @speed - @acceleration * @runner.frametime
+        @speed = @speed - @gravity
 
   pos: (left, top)->
     @left = left
@@ -155,7 +174,7 @@ class Bird
     @speed = 0
     @is_dead = false
     @$elm.removeClass('dead')
-    @acceleration = 0
+    @gravity = 0
 
   state_fly: ->
     # 飞行
@@ -173,8 +192,8 @@ class Bird
   jump: ->
     return if @is_dead
 
-    @acceleration = 0.0025
-    @speed = 0.55
+    @gravity = @runner.GRAVITY
+    @speed = @runner.BIRD_JUMP_SPEED
 
 class Score
   constructor: ->
@@ -332,7 +351,6 @@ class Pipes
     @is_stop = false    
     @generate()
 
-
 class Game
   constructor: (@stage)->
     @stage = new Stage
@@ -405,11 +423,9 @@ class Game
         @bird.jump()
 
     jQuery(document).on 'bird:dead', =>
-      console.log 'bird dead'
       @over()
 
     jQuery(document).on 'bird:hit', =>
-      console.log 'bird hit'
       @bird.state_dead()
 
     jQuery(document).on 'pipe:created', (evt, $pipe)=>
@@ -478,7 +494,6 @@ class Game
           , =>
             @$ok.fadeIn()
             @$share.fadeIn()
-
     , 500
 
 jQuery ->

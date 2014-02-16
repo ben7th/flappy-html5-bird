@@ -105,19 +105,7 @@ body {
       background-size: auto 100%;
       background-repeat: repeat-x;
       background-position:0 0;
-
-      // @include animation(stage_move .38s linear infinite)
-      // 380 ms 移动 38 像素
-      // 1000 ms 100 px
-      // 16.66666667 ms 1.666667 px
     }
-
-    // &.stop {
-    //   .ground {
-    //     animation-play-state:paused;
-    //     -webkit-animation-play-state:paused;
-    //   }
-    // }
   }
 
   .bird {
@@ -346,8 +334,6 @@ body {
     width:69px;
     top:0;
     bottom:64px;
-
-    // background-color:#000;
 
     .top {
       position:absolute;
