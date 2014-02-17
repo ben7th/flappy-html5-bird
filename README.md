@@ -1,6 +1,17 @@
 flappy-html5-bird
 =================
 
+### 这是啥？
+
+这是 flappy bird 的 html5 版本。除了 jQuery 没有用什么其他框架。很基础。
+
+
+### try it
+
+在这里试玩：
+http://ben7th.github.io/flappy-html5-bird/
+
+
 ### change log
 
 2014.02.16 - 0.0.3<br/>
