@@ -1,4 +1,23 @@
-flappy-html5-bird
+# English README
+
+What is this?<br/>
+This is the HTML5 version of Flappy Bird Game. No other frameworks except jQuery are used. Very basic.
+
+
+Try it here: http://ben7th.github.io/flappy-html5-bird/
+
+
+### Change Log
+2014.02.16-0.0.3<br/>
+1. Change the movement of the bird's wings up and down to pure CSS3 to improve efficiency;<br/>
+2. Slightly increased the speed of the bird's wings flapping up and down (0.4s to 0.3s)<br/>
+3. Slightly expanded the random range of the tube opening (upper and lower each increased by 10 pixels)<br/>
+
+
+2014.02.17-0.0.4<br/>
+Adjusted some scene values<br/>
+
+Flappy Bird - HTML5
 =================
 
 ### 这是啥？
